@@ -26,6 +26,11 @@ export default hopeTheme({
     mdEnhance: {
       // 添加选项卡支持
       tabs: true,
+      // 代码块分组
+      codetabs: true,
+      mermaid: true,
+      // 启用 vue 交互演示
+      vuePlayground: true,
       // 启用流程图
       flowchart: true,
       // 启用 figure
@@ -36,6 +41,8 @@ export default hopeTheme({
       imgMark: true,
       // 启用图片大小
       imgSize: true,
+      // 幻灯片
+      revealJs: true,
     },
   },
 })

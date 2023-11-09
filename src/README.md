@@ -2,3 +2,36 @@
 home: true
 title: 首页
 ---
+
+::: vue-playground Vue 交互演示 1
+
+@file App.vue
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const msg = ref('你好交互演示!')
+</script>
+
+<template>
+  <h1>{{ msg }}</h1>
+  <input v-model="msg" />
+</template>
+```
+
+:::
+
+> 文件区域是 vscode 中的一个概念，区域内容被 #region 和 #endregion 注释包围。
+
+<iframe data-v-4fb811c9="" id="iframe_mydata-maxdepth1" src="https://labuladong.github.io/algo-visualize/" width="100%" height="100%" loading="lazy" scrolling="auto" frameborder="0" style="overflow: auto;"></iframe>
+
+<iframe
+  :src="$withBase('https://www.ndzy01.com')"
+  width="100%"
+  height="400"
+  frameborder="0"
+  scrolling="No"
+  leftmargin="0"
+  topmargin="0"
+/>
