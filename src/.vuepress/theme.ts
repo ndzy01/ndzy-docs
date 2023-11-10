@@ -4,7 +4,7 @@ import { enSidebar } from './sidebar/index.js'
 
 export default hopeTheme({
   // 当前网站部署到的域名
-  hostname: 'xxx',
+  hostname: 'https://www.ndzy01.com/',
   logo: 'https://cdn.jsdelivr.net/gh/ndzy01/img/ndzy.png',
   docsDir: 'src',
   locales: {
