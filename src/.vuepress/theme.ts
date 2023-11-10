@@ -24,6 +24,8 @@ export default hopeTheme({
   },
   plugins: {
     mdEnhance: {
+      // 卡片
+      card: true,
       // 添加选项卡支持
       tabs: true,
       // 代码块分组

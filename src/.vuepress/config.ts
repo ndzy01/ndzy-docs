@@ -6,7 +6,7 @@ export default defineUserConfig({
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: '文档',
+      title: '',
       description: '',
     },
   },
