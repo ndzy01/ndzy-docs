@@ -24,8 +24,6 @@ const msg = ref('你好交互演示!')
 
 > 文件区域是 vscode 中的一个概念，区域内容被 #region 和 #endregion 注释包围。
 
-<iframe data-v-4fb811c9="" id="iframe_mydata-maxdepth1" src="https://labuladong.github.io/algo-visualize/" width="100%" height="100%" loading="lazy" scrolling="auto" frameborder="0" style="overflow: auto;"></iframe>
-
 <iframe
   :src="$withBase('https://www.ndzy01.com')"
   width="100%"
