@@ -6,6 +6,7 @@ export const enNavbar = navbar([
     text: '算法框架',
     prefix: '/algorithm/',
     children: [
+      '',
       {
         text: '单链表',
         prefix: 'dan-lian-biao/',

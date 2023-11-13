@@ -23,13 +23,13 @@ const onClose = () => {
     <LinkOutlined />
   </a>
   <a-drawer
-    width="90%"
+    width="96%"
     :title="name"
     placement="right"
     :closable="false"
     :open="open"
     @close="onClose"
   >
-    <iframe :src="src" width="100%" height="100%" />
+    <iframe :src="src" width="100%" height="100%"></iframe>
   </a-drawer>
 </template>
