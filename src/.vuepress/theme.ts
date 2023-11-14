@@ -3,6 +3,8 @@ import { enNavbar } from './navbar/index.js'
 import { enSidebar } from './sidebar/index.js'
 
 export default hopeTheme({
+  print: false,
+  headerDepth: 6,
   // 当前网站部署到的域名
   hostname: 'https://www.ndzy01.com/',
   logo: 'https://cdn.jsdelivr.net/gh/ndzy01/img/ndzy.png',

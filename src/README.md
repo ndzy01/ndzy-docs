@@ -3,6 +3,12 @@ home: true
 title: 首页
 ---
 
+<br/>
+
+> 文件区域是 vscode 中的一个概念，区域内容被 #region 和 #endregion 注释包围。
+
+<HomeLink></HomeLink>
+
 ::: vue-playground Vue 交互演示
 
 @file App.vue
@@ -21,7 +27,3 @@ const msg = ref('你好交互演示!')
 ```
 
 :::
-
-> 文件区域是 vscode 中的一个概念，区域内容被 #region 和 #endregion 注释包围。
-
-<L src="https://juejin.cn/post/6844904131795091464" name="React源码" />

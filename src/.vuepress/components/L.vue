@@ -1,10 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import { LinkOutlined } from '@ant-design/icons-vue'
 
-const props = defineProps({
-  name: String,
-  src: String,
+withDefaults(defineProps<{ name: string; src: string; img?: string }>(), {
+  name: '',
+  src: '',
+  img: '',
 })
 const open = ref(false)
 
@@ -22,11 +23,11 @@ const onClose = () => {
   <a :href="src" target="_blank">
     <LinkOutlined />
   </a>
+  <a-image v-if="img" :width="50" :height="50" src="img" />
   <a-drawer
     width="96%"
-    :title="name"
     placement="right"
-    :closable="false"
+    :title="name"
     :open="open"
     @close="onClose"
   >

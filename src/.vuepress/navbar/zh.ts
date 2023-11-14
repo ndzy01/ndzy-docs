@@ -3,7 +3,7 @@ import { navbar } from 'vuepress-theme-hope'
 export const enNavbar = navbar([
   '/',
   {
-    text: '算法框架',
+    text: '算法',
     prefix: '/algorithm/',
     children: [
       '',
