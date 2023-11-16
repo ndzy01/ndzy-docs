@@ -76,23 +76,61 @@ function traverse(root) {
 
 ## 动态规划
 
-```py
-# 自顶向下递归的动态规划
-def dp(状态1, 状态2, ...):
-    for 选择 in 所有可能的选择:
-        # 此时的状态已经因为做了选择而改变
-        result = 求最值(result, dp(状态1, 状态2, ...))
-    return result
+```js
+// 自顶向下递归的动态规划
+// 明确状态
+const dp = (state, chooseList) => {
+  // base case
+  if (state === 'xxx') return 'xxx'
 
-# 自底向上迭代的动态规划
-# 初始化 base case
-dp[0][0][...] = base case
-# 进行状态转移
-for 状态1 in 状态1的所有取值：
-    for 状态2 in 状态2的所有取值：
-        for ...
-            dp[状态1][状态2][...] = 求最值(选择1，选择2...)
+  let res = '无解'
 
+  // 做选择
+  for (const choose of chooseList) {
+    // 此时的状态已经因为做了选择而改变，具体操作根据实际情况而定
+    const newState = state - choose
+
+    // 计算子问题的结果
+    const subProblem = dp(chooseList, newState)
+
+    // 子问题无解则跳过
+    if (subProblem === '无解') continue
+
+    // 子问题的最优解 根据实际情况而定
+    const M = 1 + subProblem
+    // 在子问题中选择最优解 求最值 Math.min、Math.max
+    res = Math.min(res, M)
+  }
+
+  return res
+}
+```
+
+```js
+// 自底向上迭代的动态规划
+// 明确状态
+const fn = (state, chooseList) => {
+  // 定义 dp 数组
+  const dp = Array('xxx').fill('无解')
+
+  // base case
+  dp['xxx'] = 'base case'
+
+  for (let i = 0; i < dp.length; i++) {
+    // 做选择
+    for (const choose of chooseList) {
+      // 子问题无解，跳过
+      if ('xxx') continue
+
+      // 子问题的最优解 根据实际情况而定
+      const M = 1 + dp['xxx']
+      // 求最值 Math.min、Math.max
+      dp[i] = Math.min(dp[i], M)
+    }
+  }
+
+  return dp['xxx']
+}
 ```
 
 ## 回溯

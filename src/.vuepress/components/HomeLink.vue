@@ -28,13 +28,14 @@ const links = ref([
   { src: 'https://cn1.hkss-net.xyz/auth/login', name: 'vpn' },
   { src: 'chrome://inspect', name: '谷歌调试' },
   { src: 'https://visualgo.net/zh', name: '算法可视化' },
+  { src: 'https://play.vuejs.org/', name: 'vue 演练场' },
 ])
 </script>
 
 <template>
   <a-row>
     <a-col v-for="item in links" :span="12" :key="item.src">
-      <L :name="item.name" :src="item.src"></L>
+      <L :name="item.name" :src="item.src" />
     </a-col>
   </a-row>
 </template>
