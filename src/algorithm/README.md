@@ -81,13 +81,14 @@ function traverse(root) {
 // 明确状态
 const dp = (state, chooseList) => {
   // base case
-  if (state === 'xxx') return 'xxx'
+  if (state === 'xxx') return 'base case'
 
+  // '无解' 可以设置为 -1、Number.MAX_VALUE等值，根据具体情况而定
   let res = '无解'
 
   // 做选择
   for (const choose of chooseList) {
-    // 此时的状态已经因为做了选择而改变，具体操作根据实际情况而定
+    // 此时的状态已经因为做了选择而改变，根据具体情况而定
     const newState = state - choose
 
     // 计算子问题的结果
@@ -98,20 +99,22 @@ const dp = (state, chooseList) => {
 
     // 子问题的最优解 根据实际情况而定
     const M = 1 + subProblem
+
     // 在子问题中选择最优解 求最值 Math.min、Math.max
     res = Math.min(res, M)
   }
 
   return res
 }
-```
 
-```js
 // 自底向上迭代的动态规划
 // 明确状态
 const fn = (state, chooseList) => {
-  // 定义 dp 数组
-  const dp = Array('xxx').fill('无解')
+  // 定义并初始化 dp 数组
+  // '无解' 可以设置为 -1、Number.MAX_VALUE等值，根据具体情况而定
+  // 根据状态和实际情况设置 dpLength
+  const dpLength = state
+  const dp = Array(dpLength).fill('无解')
 
   // base case
   dp['xxx'] = 'base case'
@@ -122,8 +125,12 @@ const fn = (state, chooseList) => {
       // 子问题无解，跳过
       if ('xxx') continue
 
+      // 根据实际情况而定
+      const newState = i - choose
+
       // 子问题的最优解 根据实际情况而定
-      const M = 1 + dp['xxx']
+      const M = 1 + dp[newState]
+
       // 求最值 Math.min、Math.max
       dp[i] = Math.min(dp[i], M)
     }

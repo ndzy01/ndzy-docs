@@ -5,6 +5,8 @@ title: 首页
 
 <br />
 
+- traverse
+
 > 文件区域是 vscode 中的一个概念，区域内容被 #region 和 #endregion 注释包围。
 
 <HomeLink />
