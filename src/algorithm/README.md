@@ -142,18 +142,23 @@ const fn = (state, chooseList) => {
 
 ## 回溯
 
-```py
-result = []
-def backtrack(路径, 选择列表):
-    if 满足结束条件:
-        result.add(路径)
-        return
+```js
+const result = []
 
-    for 选择 in 选择列表:
-        做选择
-        backtrack(路径, 选择列表)
-        撤销选择
+const backtrack = (path, chooseList) => {
+  if ('满足结束条件') {
+    result.push(path)
+    return
+  }
 
+  for (let index = 0; index < chooseList.length; index++) {
+    // 做选择
+    result.push(chooseList[i])
+    backtrack(path, chooseList)
+    // 撤销选择
+    result.pop()
+  }
+}
 ```
 
 ```ts
@@ -224,3 +229,121 @@ var BFS = function (start, target) {
   // 如果走到这里，说明在图中没有找到目标节点
 }
 ```
+
+::: vue-playground Vue 交互演示
+@file App.vue
+
+```vue
+<script setup>
+import tree from './tree.js'
+const backtrack = function (root) {
+  if (root == null) return
+  for (let i in root.children) {
+    // 做选择
+    console.log(
+      '我站在节点 ' +
+        root.value +
+        ' 到节点 ' +
+        root.children[i].value +
+        ' 的树枝上',
+    )
+    backtrack(root.children[i])
+    // 撤销选择
+    console.log(
+      '我将要离开节点 ' +
+        root.children[i].value +
+        ' 到节点 ' +
+        root.value +
+        ' 的树枝上',
+    )
+  }
+}
+
+// backtrack(tree.root)
+
+const dfs = function (root) {
+  if (root == null) return
+  // 做选择
+  console.log('我已经进入节点 ' + root.value + ' 啦')
+  for (let i in root.children) {
+    dfs(root.children[i])
+  }
+  // 撤销选择
+  console.log('我将要离开节点 ' + root.value + ' 啦')
+}
+
+dfs(tree.root)
+</script>
+
+<template></template>
+```
+
+@file tree.js
+
+```js
+class Node {
+  constructor(value) {
+    this.value = value
+    this.children = []
+  }
+}
+
+class Tree {
+  constructor() {
+    this.root = null
+  }
+
+  addNode(value, parentValue) {
+    const newNode = new Node(value)
+    if (this.root === null) {
+      // 如果树为空，直接将新节点设置为根节点
+      this.root = newNode
+    } else {
+      // 如果树不为空，找到父节点并将新节点添加为其子节点
+      const parentNode = this.findNode(parentValue)
+      if (parentNode) {
+        parentNode.children.push(newNode)
+      }
+    }
+  }
+
+  findNode(value, node = this.root) {
+    if (node.value === value) {
+      return node
+    }
+    for (let i = 0; i < node.children.length; i++) {
+      const foundNode = this.findNode(value, node.children[i])
+      if (foundNode !== null) {
+        return foundNode
+      }
+    }
+    return null
+  }
+
+  print() {
+    this.printNode(this.root)
+  }
+
+  printNode(node) {
+    console.log(node.value)
+    for (let i = 0; i < node.children.length; i++) {
+      this.printNode(node.children[i])
+    }
+  }
+}
+
+const tree = new Tree()
+
+// 添加节点
+tree.addNode('A', null)
+tree.addNode('B', 'A')
+tree.addNode('C', 'A')
+tree.addNode('D', 'B')
+tree.addNode('E', 'B')
+tree.addNode('F', 'C')
+tree.addNode('G', 'C')
+
+export default tree
+```
+
+:::
