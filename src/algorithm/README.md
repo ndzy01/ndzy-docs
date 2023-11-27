@@ -230,7 +230,7 @@ var BFS = function (start, target) {
 }
 ```
 
-::: vue-playground Vue 交互演示
+::: vue-playground 回溯算法和深度优先算法
 @file App.vue
 
 ```vue
@@ -347,3 +347,34 @@ export default tree
 ```
 
 :::
+
+<!--
+```flow
+st=>start: 开始|past:>http://www.google.com[blank]
+e=>end: 结束|future:>http://www.google.com
+op1=>operation: 操作1|past
+op2=>operation: 操作2|current
+sub1=>subroutine: 子程序|invalid
+cond=>condition: 是/否?|approved:>http://www.google.com
+c2=>condition: 判断2|rejected
+io=>inputoutput: 进行反思...|future
+
+st->op1(right)->cond
+cond(yes, right)->c2
+cond(no)->sub1(left)->op1
+c2(yes)->io->e
+c2(no)->op2->e
+``` -->
+
+```flow
+st=>start: 开始|past:>http://www.google.com[blank]
+e=>end: 结束|future:>http://www.google.com
+
+st->e
+```
+
+```
+链接网址 [blank] 指定新页面打开
+:>http://www.google.com[blank]
+
+```
