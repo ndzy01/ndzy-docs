@@ -1,0 +1,34 @@
+.dumi-default-toc > li[data-depth='3'] > a {
+  padding-inline-start: 16px;
+}
+
+.dumi-default-toc > li[data-depth='4'] > a {
+  padding-inline-start: 24px;
+}
+
+.dumi-default-toc > li[data-depth='5'] > a {
+  padding-inline-start: 32px;
+}
+
+.dumi-default-toc > li[data-depth='6'] > a {
+  padding-inline-start: 40px;
+}
+
+@media screen and (min-width: 1450px) {
+  .dumi-default-doc-layout-toc-wrapper {
+    position: fixed !important;
+    top: 100px !important;
+    right: 0 !important;
+    width: 280px !important;
+    margin-inline-start: 24px !important;
+    max-height: 80vh !important;
+    overflow: auto !important;
+    overscroll-behavior: contain !important;
+  }
+}
+
+.toc-active {
+  margin-inline-start: -1px;
+  color: #30363f;
+  border-inline-start: 2px solid #1677ff;
+}

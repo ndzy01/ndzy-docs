@@ -1,5 +1,10 @@
+.dumi/tmp
+.dumi/tmp-production
 package-lock.json
-*.yml
+*.yaml
+.idea
+.fleet
+dist
 .gitignore
 *.png
 CNAME

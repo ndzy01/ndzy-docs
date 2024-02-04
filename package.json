@@ -1,27 +1,41 @@
 {
-  "name": "ndzy-docs",
-  "version": "1.0.0",
-  "description": "文档网站",
-  "type": "module",
+  "name": "docs",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
   "scripts": {
-    "docs:build": "vuepress build src",
-    "docs:clean-dev": "vuepress dev src --clean-cache",
-    "dev": "vuepress dev src",
-    "docs:update-package": "npx vp-update"
+    "build": "dumi build",
+    "deploy": "gh-pages -d dist",
+    "dev": "dumi dev",
+    "lint": "npx prettier -w .",
+    "prepare": "husky install && dumi setup"
   },
-  "devDependencies": {
-    "@vue/repl": "^2.7.0",
-    "@vuepress/client": "2.0.0-beta.67",
-    "flowchart.ts": "^1.0.1",
-    "mermaid": "^10.6.1",
-    "prettier": "^3.1.0",
-    "reveal.js": "^5.0.2",
-    "vue": "^3.3.4",
-    "vuepress": "2.0.0-beta.67",
-    "vuepress-theme-hope": "2.0.0-beta.246"
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ]
   },
   "dependencies": {
-    "@ant-design/icons-vue": "^7.0.1",
-    "ant-design-vue": "^4.0.7"
+    "@ant-design/icons": "^5.0.1",
+    "ahooks": "^3.7.4",
+    "antd": "^5.12.5",
+    "axios": "^1.6.3",
+    "crypto-js": "^4.1.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@types/crypto-js": "^4.2.1",
+    "@types/react-dom": "^18.2.18",
+    "dumi": "^2.2.14",
+    "gh-pages": "^6.1.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0"
   }
 }
