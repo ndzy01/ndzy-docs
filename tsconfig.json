@@ -6,8 +6,8 @@
     "baseUrl": "./",
     "jsx": "react",
     "paths": {
-      "@@/*": [".dumi/tmp/*"]
-    }
+      "@@/*": [".dumi/tmp/*"],
+    },
   },
-  "include": [".dumirc.ts"]
+  "include": [".dumirc.ts"],
 }

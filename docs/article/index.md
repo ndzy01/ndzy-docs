@@ -164,7 +164,7 @@ async function drawDOMToCanvas(target, name = 'screenshot.png') {
   script.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
   document.body.appendChild(script);
 
-  await sleep(2000);
+  await sleep(3000);
   // 获取要绘制的 DOM 元素
   const element = document.querySelector(`.${target}`);
 

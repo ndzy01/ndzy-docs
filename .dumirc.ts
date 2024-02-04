@@ -8,11 +8,7 @@ export default defineConfig({
     prefersColor: { default: 'light', switch: false },
     nav: {
       mode: 'append',
-      value: [
-        { title: 'todo', link: 'https://www.ndzy01.com/ndzy-todos/' },
-        { title: 'docs', link: 'https://www.ndzy01.com/ndzy-docs/' },
-        { title: 'project', link: 'https://www.ndzy01.com/ndzy-project/' },
-      ],
+      value: [{ title: 'manage', link: 'https://ndzy01.gitee.io/ndzy-manage/' }],
     },
   },
   base: '/ndzy-docs/',
