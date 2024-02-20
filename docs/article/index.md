@@ -3,6 +3,8 @@ title: 文章
 order: 2000
 ---
 
+## 更新 npm 依赖
+
 ```
 npm install -g npm-check
 
@@ -10,8 +12,9 @@ npm-check -u 当前目录
 npm-check -u -g 全局目录
 ```
 
+## 编译 ts 文件
+
 ```
-编译 ts 文件
 npm install -g typescript
 tsc docs/**/*.ts
 ```
@@ -94,28 +97,17 @@ curl -fsSL https://fastly.jsdelivr.net/gh/hellodigua/code996/bin/code996.sh | ba
     "uploader": "github",
     "current": "github",
     "github": {
-      // 需要修改
+      // zbz 替换为对应仓库
       "repo": "ndzy01/zbz",
       "branch": "main",
       // 必要 需要修改
       "token": "xxx",
       "path": "",
-      // 需要修改
+      // zbz 替换为对应仓库
       "customUrl": "https://cdn.jsdelivr.net/gh/ndzy01/zbz"
     }
   },
   "picgoPlugins": {}
-}
-```
-
-## css
-
-```css
-// rbg 最后一个参数是透明度
-.separate {
-  height: 1px;
-  background-color: '#e5e5e5';
-  margin: 32px 0;
 }
 ```
 
@@ -155,11 +147,27 @@ const loop = (arr: any[]) => {
 ## 截图保存
 
 ```js
+function formatDate(date) {
+  // 补零函数
+  function pad(num) {
+    return num < 10 ? '0' + num : num;
+  }
+
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1); // getMonth() 返回的月份是从 0 开始的
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+
+  return `${year}_${month}_${day}_${hours}_${minutes}_${seconds}`;
+}
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function drawDOMToCanvas(target, name = 'screenshot.png') {
+async function drawDOMToCanvas(target, name = 'screenshot_' + formatDate(new Date()) + '.png') {
   const script = document.createElement('script');
   script.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
   document.body.appendChild(script);
@@ -169,7 +177,9 @@ async function drawDOMToCanvas(target, name = 'screenshot.png') {
   const element = document.querySelector(`.${target}`);
 
   // 使用 html2canvas 将 DOM 元素转换为 Canvas
-  html2canvas(element).then(function (canvas) {
+  html2canvas(element, {
+    useCORS: true, // 允许加载跨域图片（需要图片服务器支持CORS）
+  }).then(function (canvas) {
     // 创建一个隐藏的a标签
     const link = document.createElement('a');
     link.style.display = 'none';

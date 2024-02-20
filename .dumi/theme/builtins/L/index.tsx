@@ -2,6 +2,7 @@ import { LinkOutlined } from '@ant-design/icons';
 import { useSetState } from 'ahooks';
 import { Button, Drawer } from 'antd';
 import React from 'react';
+import './index.css';
 
 const Link = ({ name, src }: { src: string; name: string }) => {
   const [state, setState] = useSetState({ open: false });
@@ -11,7 +12,7 @@ const Link = ({ name, src }: { src: string; name: string }) => {
       <Button type="link" onClick={() => setState({ open: true })}>
         {name}
       </Button>
-      <a style={{ color: 'skyblue', marginLeft: 2 }} href={src} target="_blank">
+      <a className="doc-l-a" href={src} target="_blank">
         <LinkOutlined />
       </a>
       <Drawer
@@ -25,7 +26,7 @@ const Link = ({ name, src }: { src: string; name: string }) => {
         width="100%"
         onClose={() => setState({ open: false })}
       >
-        <iframe style={{ width: '100%', height: '100%' }} src={src} />
+        <iframe className="doc-l-iframe" src={src} />
       </Drawer>
     </>
   );

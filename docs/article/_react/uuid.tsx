@@ -16,6 +16,7 @@ const Uuid = () => {
   return (
     <div>
       <button onClick={() => setUuid(generateUUID())}>生成</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
       <button onClick={() => setUuid('')}>清除</button>
       {uuid && <Paragraph copyable>{uuid}</Paragraph>}
     </div>
