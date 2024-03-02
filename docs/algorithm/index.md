@@ -25,7 +25,9 @@ order: 1000
 
 ### 数据结构的基本操作
 
-###### 遍历 线性（循环）非线性（递归）
+###### 遍历
+
+> 线性（循环）;非线性（递归）
 
 ```js
 // 线性
@@ -50,6 +52,8 @@ function traverse(root) {
   // 后序位置 左右根
 }
 ```
+
+### 常用数据结构定义
 
 ```ts
 // 单链表
@@ -78,6 +82,34 @@ class TreeNode {
 ```
 
 ## 动态规划
+
+```js
+const dp = (chooseList, [case1, case2]) => {
+  // base case
+  if (case1 === 'xxx') return 'xxx';
+  if (case2 === 'xxx') return 'xxx';
+
+  let res = 'xxx';
+
+  for (const choose of chooseList) {
+    // 确定当前 case
+    const currentCase = choose;
+
+    // 计算子问题的结果
+    const subProblem = dp(chooseList, currentCase);
+
+    // 子问题无解则跳过
+    if (subProblem === 'xxx') continue;
+
+    // 求值 最大值 最小值 等等
+    res = Math.min(res, subProblem);
+    res = Math.max(res, subProblem);
+    res = res + subProblem;
+  }
+
+  return res;
+};
+```
 
 ```py
 # 自顶向下递归的动态规划
@@ -142,31 +174,45 @@ const backtrack = function (root) {
 
 ## dfs
 
+```ts
+// DFS 算法把「做选择」「撤销选择」的逻辑放在 for 循环外面
+const dfs = function (root) {
+  if (root == null) return;
+  // 做选择
+  console.log('我已经进入节点 ' + root + ' 啦');
+  for (let i in root.children) {
+    dfs(root.children[i]);
+  }
+  // 撤销选择
+  console.log('我将要离开节点 ' + root + ' 啦');
+};
+```
+
 ## bfs
 
 ```js
 // 注意：javascript 代码由 chatGPT🤖 根据我的 java 代码翻译，旨在帮助不同背景的读者理解算法逻辑。
 // 本代码不保证正确性，仅供参考。如有疑惑，可以参照我写的 java 代码对比查看。
 
-var BFS = function (start, target) {
-  var q = []; // 核心数据结构
-  var visited = new Set(); // 避免走回头路
-  var step = 0;
+const BFS = function (start, target) {
+  const q = []; // 核心数据结构
+  const visited = new Set(); // 避免走回头路
+  const step = 0;
 
   q.push(start); // 将起点加入队列
   visited.add(start);
 
   while (q.length > 0) {
-    var sz = q.length;
+    const sz = q.length;
     /* 将当前队列中的所有节点向四周扩散 */
-    for (var i = 0; i < sz; i++) {
-      var cur = q.shift();
+    for (const i = 0; i < sz; i++) {
+      const cur = q.shift();
       /* 划重点：这里判断是否到达终点 */
       if (cur == target) return step;
       /* 将 cur 的相邻节点加入队列 */
-      var adj = cur.adj();
-      for (var j = 0; j < adj.length; j++) {
-        var x = adj[j];
+      const adj = cur.adj();
+      for (const j = 0; j < adj.length; j++) {
+        const x = adj[j];
         if (!visited.has(x)) {
           q.push(x);
           visited.add(x);
