@@ -1,5 +1,5 @@
 ---
-title: 面试
+title: 准备
 order: 2006
 ---
 
@@ -162,6 +162,145 @@ if (!Array.prototype.customMap) {
 }
 ```
 
+## 数组 IndexOf
+
+```js
+if (!Array.prototype.customIndexOf) {
+  Array.prototype.customIndexOf = function (target, fromIndex) {
+    // 若数组为空或者 fromIndex 超出数组长度，返回 -1
+    if (this == null || this.length === 0 || fromIndex >= this.length) {
+      return -1;
+    }
+
+    // 处理fromIndex为负数的情况
+    const startIndex = Math.max(fromIndex | 0, 0); // fromIndex为负数时，确保startIndex不小于0
+
+    // 遍历数组，寻找目标元素
+    for (let i = startIndex; i < this.length; i++) {
+      if (this[i] === target) {
+        return i;
+      }
+    }
+
+    // 如果未找到，返回 -1
+    return -1;
+  };
+}
+```
+
+## promise
+
+```js
+class SimplePromise {
+  constructor(executor) {
+    this.PENDING = 'pending';
+    this.FULFILLED = 'fulfilled';
+    this.REJECTED = 'rejected';
+    this.state = this.PENDING;
+    this.value = null;
+    this.reason = null;
+    this.onFulfilledCallbacks = [];
+    this.onRejectedCallbacks = [];
+
+    const resolve = (value) => {
+      if (this.state === this.PENDING) {
+        this.state = this.FULFILLED;
+        this.value = value;
+        this.onFulfilledCallbacks.forEach((callback) => callback(value));
+      }
+    };
+
+    const reject = (reason) => {
+      if (this.state === this.PENDING) {
+        this.state = this.REJECTED;
+        this.reason = reason;
+        this.onRejectedCallbacks.forEach((callback) => callback(reason));
+      }
+    };
+
+    try {
+      executor(resolve, reject);
+    } catch (error) {
+      reject(error);
+    }
+  }
+
+  then(onFulfilled, onRejected) {
+    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
+    onRejected =
+      typeof onRejected === 'function'
+        ? onRejected
+        : (reason) => {
+            throw reason;
+          };
+
+    let promise2 = new SimplePromise((resolve, reject) => {
+      if (this.state === this.FULFILLED) {
+        setTimeout(() => {
+          try {
+            const result = onFulfilled(this.value);
+            resolve(result);
+          } catch (error) {
+            reject(error);
+          }
+        }, 0);
+      }
+
+      if (this.state === this.REJECTED) {
+        setTimeout(() => {
+          try {
+            const result = onRejected(this.reason);
+            resolve(result);
+          } catch (error) {
+            reject(error);
+          }
+        }, 0);
+      }
+
+      if (this.state === this.PENDING) {
+        this.onFulfilledCallbacks.push(() => {
+          setTimeout(() => {
+            try {
+              const result = onFulfilled(this.value);
+              resolve(result);
+            } catch (error) {
+              reject(error);
+            }
+          }, 0);
+        });
+
+        this.onRejectedCallbacks.push(() => {
+          setTimeout(() => {
+            try {
+              const result = onRejected(this.reason);
+              resolve(result);
+            } catch (error) {
+              reject(error);
+            }
+          }, 0);
+        });
+      }
+    });
+
+    return promise2;
+  }
+}
+```
+
+## url 解析
+
+```js
+function getURLParameters(url) {
+  // 使用 URL 对象解析传入的 url
+  const params = new URLSearchParams(new URL(url).search);
+
+  // 使用扩展运算符将所有参数转换为键值对数组，然后转换为对象
+  const parameters = Object.fromEntries(params.entries());
+
+  return parameters;
+}
+```
+
 ## 观察者模式 发布/订阅 模式
 
 ## Diff算法的核心步骤
@@ -171,4 +310,59 @@ if (!Array.prototype.customMap) {
 - 比较子元素列表
 
 ## Fiber
-1. 可中断的工作
+
+Fiber是React 16引入的新架构，它主要目的是增强React应用的性能，特别是在动画、布局和手势等交互性强的场景下。Fiber架构的关键目标是使React的渲染过程可以被打断和分片处理，从而使更新过程可以适应用户的操作，提高应用的响应性。
+
+在Fiber架构之前，React使用了递归的方式来遍历组件树并进行差异更新，这个过程称为Reconciliation（协调）。这种方法的问题在于，一旦开始，它就不能停止，直到整个组件树遍历完毕。对于大型应用来说，这可能会导致主线程被长时间占用，从而导致性能问题，例如动画卡顿或响应用户输入的延迟。
+
+为了解决这个问题，Fiber引入了以下几个关键概念：
+
+- 任务分割：Fiber通过将渲染工作分割成小块（称为Fibers）来解决递归更新的问题。每个Fiber代表了一个工作单元，React可以执行或暂停这些工作单元，然后在适当的时候回来继续未完成的工作。
+- 优先级调度：React可以为不同的更新分配不同的优先级。例如，对于用户输入或动画相关的更新可以分配较高的优先级，而不急迫的数据获取则可以分配较低的优先级。这样，React可以先执行高优先级的任务，保证关键的用户交互不会被延迟。
+- 并发模式：Fiber架构的另一个重要特性是支持并发模式（Concurrent Mode）。在并发模式下，React可以准备多个版本的UI，这些UI对应于应用中不同的状态。当一个更新被打断时，React可以丢弃未完成的工作，然后根据最新的状态重新开始。
+- 错误边界：Fiber架构引入了错误边界的概念，这使得开发者可以更好地处理React组件树中的错误。当子组件树中发生错误时，错误边界可以捕获这些错误，并提供备用的UI，而不是导致整个应用崩溃。
+- 新的生命周期方法：为了更好地适应Fiber的工作方式，React引入了新的生命周期方法，如getDerivedStateFromProps和getSnapshotBeforeUpdate。
+
+Fiber架构极大地改进了React的性能和用户体验，它允许React应用更加平滑地进行复杂的更新，同时提供了开发者友好的工具来管理这些更新。此外，Fiber使得React团队可以在未来引入更多的优化和新特性，比如懒加载组件、时间切片（Time Slicing）等。
+
+## 对称加密&非对称加密
+
+## https和http
+
+1. **安全性** HTTP：不安全，因为它以明文形式传输数据，这意味着数据在传输过程中可以被第三方截获和查看。HTTPS：安全，因为它在HTTP的基础上添加了SSL/TLS安全层。SSL/TLS提供了加密、身份验证和数据完整性，确保数据传输过程中的安全。
+2. **端口** HTTP：默认使用80端口。HTTPS：默认使用443端口。
+3. **性能** HTTP：由于没有加密过程，通常比HTTPS快一些。HTTPS：由于涉及加密解密过程，可能会稍慢一些，尽管现代技术（如HTTP/2、更快的加密算法）已经缩小了性能差距。
+4. **URL格式** HTTP：URL以http://开头。HTTPS：URL以https://开头。
+5. **SSL/TLS证书** HTTP：不需要SSL/TLS证书。HTTPS：需要SSL/TLS证书来建立安全连接。证书由证书颁发机构（CA）颁发，证明服务器的身份。
+6. **数据保护** HTTP：不提供数据保护，任何人都可以看到传输的内容。HTTPS：通过加密算法保护数据，使之即使被拦截也无法被阅读。
+7. **搜索引擎优化（SEO）** HTTP：传统的HTTP网站在搜索引擎排名中的信任度较低。HTTPS：搜索引擎，如Google，更倾向于HTTPS网站，并将其作为排名因素之一。
+8. **用户信任** HTTP：用户对使用HTTP的网站的信任度较低，特别是当涉及敏感数据时。HTTPS：让用户放心在网站上进行交易和输入个人信息，因为它显示一个安全锁图标，表明连接是安全的。随着网络安全意识的提高，HTTPS正在变得越来越流行。对于涉及敏感数据的网站（如电子商务、在线银行等），HTTPS已成为事实上的标准。此外，许多现代Web技术（如HTTP/2和某些Web API）只在HTTPS环境下可用，这进一步推动了HTTPS的普及。
+
+## 三次握手
+
+- 客户端首先发送一个带有 SYN 标志的数据包给服务端
+- 服务端接受 SYN 数据包之后，回传一个 SYN/ACK 标志的数据包以示传达确认连接信息
+- 客户端收到 SYN/ACK 的确认数据包之后，再回传一个 ACK 标志的数据包给服务端，表示‘握手’结束
+
+## TCP 的四次挥手简单说一下
+
+- 客户端发送 FIN 报文给服务端,请求关闭连接
+- 服务端收到 FIN 报文后发送 ACK 报文给客户端确认，但依然可以继续发送数据。
+- 服务端也没有数据需要发送时,发送 FIN 报文 给客户端
+- 客户端收到 FIN 报文后，发送 ACK 报文确认，服务端关闭，客户端等待 2MSL 后关闭,此时 TCP 连接关闭。
+
+## HTTP OPTIONS
+
+HTTP OPTIONS 方法是一个预检请求，用来询问服务器支持哪些HTTP方法和功能，或者用于跨源资源共享（CORS）中的预检请求，以确定是否安全发送一个跨源请求。
+
+## 强缓存&协商缓存
+
+- 强缓存是指浏览器直接从本地缓存中获取资源，而不需要向服务器发送请求。当一个资源被强缓存时，只要缓存有效，浏览器就不会再向服务器检查是否有更新。强缓存主要通过以下两种HTTP响应头来控制
+- 当强缓存过期后，浏览器会向服务器发送请求以验证本地缓存的资源是否仍然是最新的，这个过程称为协商缓存。如果服务器确定浏览器上的资源仍然是最新的，它会返回一个304 Not Modified状态码，告诉浏览器直接使用本地缓存。
+
+## HTTP2.0&HTTP1.0 区别
+
+- HTTP/2采用二进制格式而非文本格式
+- HTTP/2是完全多路复用的，而非有序并阻塞的——只需一个连接即可实现并行
+- 使用报头压缩，HTTP/2降低了开销
+- HTTP/2让服务器可以将响应主动“推送”到客户端缓存中
