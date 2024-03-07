@@ -3,6 +3,8 @@ title: 准备
 order: 2006
 ---
 
+`>>` 运算符常用于对数进行快速除以2的幂次的操作，如 num >> 1 等价于 num / 2，并对结果向下取整。但使用时要注意符号位的影响。
+
 ## Set WeakSet Map WeakMap
 
 - Set 成员唯一 无序且不重复，可以遍历。
@@ -366,3 +368,142 @@ HTTP OPTIONS 方法是一个预检请求，用来询问服务器支持哪些HTTP
 - HTTP/2是完全多路复用的，而非有序并阻塞的——只需一个连接即可实现并行
 - 使用报头压缩，HTTP/2降低了开销
 - HTTP/2让服务器可以将响应主动“推送”到客户端缓存中
+
+## 选择排序
+
+> 选择排序是一种简单的排序算法，它的基本思想是遍历数组，每次从未排序的部分找出最小（或最大）元素，将其放到已排序部分的末尾
+
+```js
+const selectionSort = (arr) => {
+  const len = arr.length;
+  for (let i = 0; i < len; i++) {
+    // 假设当前索引的元素是最小的
+    let minIndex = i;
+    for (let j = i + 1; j < len; j++) {
+      // 如果发现更小的元素，更新最小元素的索引
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+    // 如果最小元素的索引不是当前索引，交换它们的位置
+    if (minIndex !== i) {
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
+  }
+  return arr;
+};
+```
+
+## 二分查找
+
+```js
+const binarySearch = (sortedArray, target) => {
+  let left = 0;
+  let right = sortedArray.length - 1;
+
+  while (left <= right) {
+    // 计算中间索引，位运算符向下取整
+    const mid = left + ((right - left) >> 1);
+    const midValue = sortedArray[mid];
+
+    // 检查中间的元素是否是目标值
+    if (midValue === target) {
+      return mid; // 找到目标，返回其索引
+    } else if (midValue < target) {
+      left = mid + 1; // 目标在右侧
+    } else {
+      right = mid - 1; // 目标在左侧
+    }
+  }
+
+  // 未找到目标，返回-1
+  return -1;
+};
+```
+
+## 快速排序
+
+> 快速排序是一种高效的排序算法，采用分治策略来对一个数组进行排序。
+
+````js
+const quickSort = (arr) => {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  // 选择"基准"（pivot）元素，这里选择数组中间的元素
+  const pivotIndex = Math.floor(arr.length / 2);
+  const pivot = arr.splice(pivotIndex, 1)[0];
+  const left = [];
+  const right = [];
+
+  // 将比基准元素小的元素放到左边数组，比基准元素大的放到右边数组
+  for (const element of arr) {
+    if (element < pivot) {
+      left.push(element);
+    } else {
+      right.push(element);
+    }
+  }
+
+  // 递归排序左右两边的数组，然后将它们与基准元素合并
+  return [...quickSort(left), pivot, ...quickSort(right)];
+};```
+````
+
+## 归并排序
+
+> 归并排序是一种高效的分治排序算法，它将数组分割成更小的数组，直到每个小数组只有一个元素，然后将这些数组合并回来，过程中排序元素。
+
+```js
+const mergeSort = (arr) => {
+  // 递归终止条件：数组长度为1时，无需排序，直接返回数组
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  // 找到数组的中点，并递归分割数组
+  const middle = Math.floor(arr.length / 2);
+  const left = arr.slice(0, middle);
+  const right = arr.slice(middle);
+
+  // 递归排序两边的数组，然后将它们合并在一起
+  return merge(mergeSort(left), mergeSort(right));
+};
+
+// 合并两个数组的函数，同时排序
+const merge = (left, right) => {
+  let result = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  // 遍历两个数组，按顺序选择两者之间较小的元素放入结果数组
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      result.push(left[leftIndex]);
+      leftIndex++;
+    } else {
+      result.push(right[rightIndex]);
+      rightIndex++;
+    }
+  }
+
+  // 如果左边或右边数组还有剩余的元素，将它们追加到结果数组之后
+  return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+};
+```
+
+## 回文字符串判断
+
+```js
+const isPalindrome = (str) => {
+  // 将字符串转换为统一的小写并去除所有非字母数字字符
+  const cleanedStr = str.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+
+  // 反转字符串
+  const reversedStr = cleanedStr.split('').reverse().join('');
+
+  // 比较原始字符串与反转后的字符串是否相等
+  return cleanedStr === reversedStr;
+};
+```
