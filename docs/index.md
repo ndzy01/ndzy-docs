@@ -9,8 +9,7 @@ order: 0
 
 <L name="9" src="https://www.nowcoder.com/creation/manager/columnDetail/0DQQQm"></L>
 
-<L name="github" src="https://github.com/semlinker/reactjs-interview-questions/blob/master/README.md#%E7%9B%AE%E5%BD%95"></L>
-
+```
 //一、实现一个进度函数，要求：
 // 串行执行若干个异步请求（题目中get1，get2，get3），所有请求成功后，按请求顺序输出请求返回结果的数组。
 // 如果某个请求执行失败，打印已成功的结果数组，并终止后续的请求。
@@ -25,3 +24,10 @@ const get2 = () => new Promise(resolve => setTimeout(() => resolve("2"), 3000));
 const get3 = () => new Promise(resolve => setTimeout(() => resolve("3"), 3000));
 
 let isTerminated = false;
+```
+
+## SyntheticEvent
+
+在React中，SyntheticEvent是一种封装了浏览器原生事件（native event）的跨浏览器包装器。SyntheticEvent提供了与原生事件一致的接口，无论你的代码运行在哪种浏览器上。
+
+https://www.yuque.com/12312wo/xqvhf0
