@@ -3,6 +3,12 @@ title: 文章
 order: 2000
 ---
 
+## git 配置代理
+
+`git config --global http.https://github.com.proxy socks5://127.0.0.1:7891`
+
+![git_配置代理](https://cdn.jsdelivr.net/gh/ndzy01/img/NDZY_6c4f67af-113b-4805-a6a7-09cdc37ffa2d_git_%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86.png)
+
 ## 更新 npm 依赖
 
 ```
@@ -1667,12 +1673,18 @@ function formatDate(date) {
       while (true) {
         var codePoint = this.consumeCodePoint();
         if (codePoint === EOF || codePoint === RIGHT_PARENTHESIS) {
-          return { type: 22 /* URL_TOKEN */, value: fromCodePoint$1.apply(void 0, value) };
+          return {
+            type: 22 /* URL_TOKEN */,
+            value: fromCodePoint$1.apply(void 0, value),
+          };
         } else if (isWhiteSpace(codePoint)) {
           this.consumeWhiteSpace();
           if (this.peekCodePoint(0) === EOF || this.peekCodePoint(0) === RIGHT_PARENTHESIS) {
             this.consumeCodePoint();
-            return { type: 22 /* URL_TOKEN */, value: fromCodePoint$1.apply(void 0, value) };
+            return {
+              type: 22 /* URL_TOKEN */,
+              value: fromCodePoint$1.apply(void 0, value),
+            };
           }
           this.consumeBadUrlRemnants();
           return BAD_URL_TOKEN;
@@ -1793,11 +1805,20 @@ function formatDate(date) {
       var c3 = this.peekCodePoint(2);
       if (isIdentifierStart(c1, c2, c3)) {
         var unit = this.consumeName();
-        return { type: 15 /* DIMENSION_TOKEN */, number: number, flags: flags, unit: unit };
+        return {
+          type: 15 /* DIMENSION_TOKEN */,
+          number: number,
+          flags: flags,
+          unit: unit,
+        };
       }
       if (c1 === PERCENTAGE_SIGN) {
         this.consumeCodePoint();
-        return { type: 16 /* PERCENTAGE_TOKEN */, number: number, flags: flags };
+        return {
+          type: 16 /* PERCENTAGE_TOKEN */,
+          number: number,
+          flags: flags,
+        };
       }
       return { type: 17 /* NUMBER_TOKEN */, number: number, flags: flags };
     };
@@ -2473,7 +2494,10 @@ function formatDate(date) {
     }
     return stops.map(function (_a, i) {
       var color = _a.color;
-      return { color: color, stop: Math.max(Math.min(1, processStops[i] / lineLength), 0) };
+      return {
+        color: color,
+        stop: Math.max(Math.min(1, processStops[i] / lineLength), 0),
+      };
     });
   };
   var getAngleFromCorner = function (corner, width, height) {
@@ -2672,7 +2696,11 @@ function formatDate(date) {
             var stop_1 = values[0];
             if (isNumberToken(stop_1)) {
               stops.push({
-                stop: { type: 16 /* PERCENTAGE_TOKEN */, number: stop_1.number * 100, flags: stop_1.flags },
+                stop: {
+                  type: 16 /* PERCENTAGE_TOKEN */,
+                  number: stop_1.number * 100,
+                  flags: stop_1.flags,
+                },
                 color: color,
               });
             }
@@ -2686,7 +2714,13 @@ function formatDate(date) {
           stops: stops,
           type: type,
         }
-      : { size: size, shape: shape, stops: stops, position: position, type: type };
+      : {
+          size: size,
+          shape: shape,
+          stops: stops,
+          position: position,
+          type: type,
+        };
   };
 
   var CLOSEST_SIDE = 'closest-side';
@@ -2766,7 +2800,13 @@ function formatDate(date) {
         stops.push(colorStop);
       }
     });
-    return { size: size, shape: shape, stops: stops, position: position, type: 2 /* RADIAL_GRADIENT */ };
+    return {
+      size: size,
+      shape: shape,
+      stops: stops,
+      position: position,
+      type: 2 /* RADIAL_GRADIENT */,
+    };
   };
 
   var prefixRadialGradient = function (context, tokens) {
@@ -2838,7 +2878,13 @@ function formatDate(date) {
         stops.push(colorStop);
       }
     });
-    return { size: size, shape: shape, stops: stops, position: position, type: 2 /* RADIAL_GRADIENT */ };
+    return {
+      size: size,
+      shape: shape,
+      stops: stops,
+      position: position,
+      type: 2 /* RADIAL_GRADIENT */,
+    };
   };
 
   var isLinearGradient = function (background) {
@@ -4824,7 +4870,9 @@ function formatDate(date) {
     },
     get SUPPORT_WORD_BREAKING() {
       var value = FEATURES.SUPPORT_RANGE_BOUNDS && testIOSLineBreak(document);
-      Object.defineProperty(FEATURES, 'SUPPORT_WORD_BREAKING', { value: value });
+      Object.defineProperty(FEATURES, 'SUPPORT_WORD_BREAKING', {
+        value: value,
+      });
       return value;
     },
     get SUPPORT_SVG_DRAWING() {
@@ -4837,7 +4885,9 @@ function formatDate(date) {
         typeof Array.from === 'function' && typeof window.fetch === 'function'
           ? testForeignObject(document)
           : Promise.resolve(false);
-      Object.defineProperty(FEATURES, 'SUPPORT_FOREIGNOBJECT_DRAWING', { value: value });
+      Object.defineProperty(FEATURES, 'SUPPORT_FOREIGNOBJECT_DRAWING', {
+        value: value,
+      });
       return value;
     },
     get SUPPORT_CORS_IMAGES() {
@@ -4847,7 +4897,9 @@ function formatDate(date) {
     },
     get SUPPORT_RESPONSE_TYPE() {
       var value = testResponseType();
-      Object.defineProperty(FEATURES, 'SUPPORT_RESPONSE_TYPE', { value: value });
+      Object.defineProperty(FEATURES, 'SUPPORT_RESPONSE_TYPE', {
+        value: value,
+      });
       return value;
     },
     get SUPPORT_CORS_XHR() {
@@ -4858,7 +4910,9 @@ function formatDate(date) {
     get SUPPORT_NATIVE_TEXT_SEGMENTATION() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       var value = !!(typeof Intl !== 'undefined' && Intl.Segmenter);
-      Object.defineProperty(FEATURES, 'SUPPORT_NATIVE_TEXT_SEGMENTATION', { value: value });
+      Object.defineProperty(FEATURES, 'SUPPORT_NATIVE_TEXT_SEGMENTATION', {
+        value: value,
+      });
       return value;
     },
   };
@@ -8420,10 +8474,26 @@ function formatDate(date) {
               styles = paint.container.styles;
               hasBackground = !isTransparent(styles.backgroundColor) || styles.backgroundImage.length;
               borders = [
-                { style: styles.borderTopStyle, color: styles.borderTopColor, width: styles.borderTopWidth },
-                { style: styles.borderRightStyle, color: styles.borderRightColor, width: styles.borderRightWidth },
-                { style: styles.borderBottomStyle, color: styles.borderBottomColor, width: styles.borderBottomWidth },
-                { style: styles.borderLeftStyle, color: styles.borderLeftColor, width: styles.borderLeftWidth },
+                {
+                  style: styles.borderTopStyle,
+                  color: styles.borderTopColor,
+                  width: styles.borderTopWidth,
+                },
+                {
+                  style: styles.borderRightStyle,
+                  color: styles.borderRightColor,
+                  width: styles.borderRightWidth,
+                },
+                {
+                  style: styles.borderBottomStyle,
+                  color: styles.borderBottomColor,
+                  width: styles.borderBottomWidth,
+                },
+                {
+                  style: styles.borderLeftStyle,
+                  color: styles.borderLeftColor,
+                  width: styles.borderLeftWidth,
+                },
               ];
               backgroundPaintingArea = calculateBackgroundCurvedPaintingArea(
                 getBackgroundValueForIndex(styles.backgroundClip, 0),
@@ -8852,7 +8922,10 @@ function formatDate(date) {
       var _a;
       this.windowBounds = windowBounds;
       this.instanceName = '#' + Context.instanceCount++;
-      this.logger = new Logger({ id: this.instanceName, enabled: options.logging });
+      this.logger = new Logger({
+        id: this.instanceName,
+        enabled: options.logging,
+      });
       this.cache = (_a = options.cache) !== null && _a !== void 0 ? _a : new Cache(this, options);
     }
     Context.instanceCount = 1;
@@ -8915,7 +8988,10 @@ function formatDate(date) {
               useCORS: (_d = opts.useCORS) !== null && _d !== void 0 ? _d : false,
             };
             contextOptions = __assign(
-              { logging: (_e = opts.logging) !== null && _e !== void 0 ? _e : true, cache: opts.cache },
+              {
+                logging: (_e = opts.logging) !== null && _e !== void 0 ? _e : true,
+                cache: opts.cache,
+              },
               resourceOptions,
             );
             windowOptions = {
