@@ -1,41 +1,21 @@
-import { Button, Form, Input } from 'antd';
 import DocLayout from 'dumi/theme-default/layouts/DocLayout';
 import React, { useEffect, useState } from 'react';
-import './index.css';
+import { service } from 'ndzy-utils';
 
-type FieldType = {
-  password?: string;
-};
-
-const env = process.env.NODE_ENV;
 const GlobalLayout = () => {
-  const [token, setToken] = useState('');
+  const [s, setS] = useState(false);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token') || '';
-    setToken(token);
+    service({ url: 'users/loginInfo', method: 'GET' }).then((res) => {
+      console.log(res);
+
+      if (res.status === 11) {
+        setS(true);
+      }
+    });
   }, []);
 
-  const onFinish = (values: any) => {
-    setToken(values.password);
-  };
-
-  return env === 'development' || token === 'ndzy' ? (
-    <DocLayout />
-  ) : (
-    <div className="doc-login">
-      <Form name="basic" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} onFinish={onFinish} autoComplete="off">
-        <Form.Item<FieldType> label="密码" name="password" rules={[{ required: true, message: '密码不能为空！' }]}>
-          <Input.Password />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            提交
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
-  );
+  return s && <DocLayout />;
 };
 
 export default GlobalLayout;
