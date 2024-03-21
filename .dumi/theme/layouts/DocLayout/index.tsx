@@ -3,19 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { service } from 'ndzy-utils';
 
 const GlobalLayout = () => {
-  const [s, setS] = useState(false);
+  // const [s, setS] = useState(false);
 
-  useEffect(() => {
-    service({ url: 'users/loginInfo', method: 'GET' }).then((res) => {
-      console.log(res);
+  // useEffect(() => {
+  //   service({ url: 'users/loginInfo', method: 'GET' }).then((res) => {
+  //     console.log(res);
 
-      if (res.status === 11) {
-        setS(true);
-      }
-    });
-  }, []);
+  //     if (res.status === 11) {
+  //       setS(true);
+  //     }
+  //   });
+  // }, []);
 
-  return s && <DocLayout />;
+  // return s && <DocLayout />;
+  return <DocLayout />;
 };
 
 export default GlobalLayout;
