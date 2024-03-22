@@ -1,22 +1,17 @@
 import DocLayout from 'dumi/theme-default/layouts/DocLayout';
 import React, { useEffect, useState } from 'react';
-import { service } from 'ndzy-utils';
+import { login } from 'ndzy-utils';
 
 const GlobalLayout = () => {
-  // const [s, setS] = useState(false);
+  const [s, setS] = useState(false);
 
-  // useEffect(() => {
-  //   service({ url: 'users/loginInfo', method: 'GET' }).then((res) => {
-  //     console.log(res);
+  useEffect(() => {
+    login().then((res: boolean) => {
+      setS(res);
+    });
+  }, []);
 
-  //     if (res.status === 11) {
-  //       setS(true);
-  //     }
-  //   });
-  // }, []);
-
-  // return s && <DocLayout />;
-  return <DocLayout />;
+  return s && <DocLayout />;
 };
 
 export default GlobalLayout;
