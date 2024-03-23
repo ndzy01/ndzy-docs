@@ -17,7 +17,8 @@
   },
   "lint-staged": {
     "*": [
-      "npx prettier -w ."
+      "npx prettier -w .",
+      "./deploy.sh"
     ]
   },
   "dependencies": {
