@@ -47,10 +47,10 @@ export const EditorMd = ({ value, onChange, type = 'edit' }: any) => {
           ]}
         />
       ) : (
-        <>
+        <div style={{ display: 'flex' }}>
           <MdPreview editorId={id} modelValue={value} />
           <MdCatalog editorId={id} scrollElement={scrollElement} />
-        </>
+        </div>
       )}
     </>
   );

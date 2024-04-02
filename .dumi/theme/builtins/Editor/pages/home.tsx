@@ -5,6 +5,9 @@ import { EditorMd } from '../components/editor-md';
 import { useEffect, useState } from 'react';
 import EditArticle from '../components/edit-article';
 import React from 'react';
+import { Layout, Spin } from 'antd';
+
+const { Header, Sider, Content } = Layout;
 
 const loop = (arr: any[]): any[] => {
   return arr.map((item) => {
@@ -48,73 +51,79 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
   }, []);
 
   return (
-    <>
-      <Space>
-        <Button
-          key="3"
-          onClick={() => {
-            updateState({ article: {} });
-            setOpen(true);
-          }}
-        >
-          新增
-        </Button>
-        <Button
-          key="2"
-          onClick={() => {
-            if (!article.id) {
-              return;
+    <Layout style={{ background: '#fff' }}>
+      <Spin spinning={loading.articles} />
+      <Sider style={{ background: '#fff' }}>
+        <Tree
+          showLine
+          style={{ width: 200 }}
+          onExpand={onExpand}
+          expandedKeys={expandedKeys}
+          autoExpandParent={autoExpandParent}
+          treeData={loop(articles)}
+          selectedKeys={selectedKeys}
+          onSelect={(keys: any) => {
+            setSelectedKeys(keys);
+            if (keys.length) {
+              getDetail(keys[0]);
+            } else {
+              updateState({ article: {} });
             }
-
-            setOpen(true);
-          }}
-        >
-          编辑
-        </Button>
-        <Button
-          key="1"
-          type="primary"
-          onClick={() => {
-            if (!article.id) {
-              return;
-            }
-
-            del(article.id);
-
-            setSelectedKeys([]);
-          }}
-        >
-          删除
-        </Button>
-      </Space>
-      <div style={{ display: 'flex' }}>
-        <div>
-          <Tree
-            showLine
-            style={{ width: 200 }}
-            onExpand={onExpand}
-            expandedKeys={expandedKeys}
-            autoExpandParent={autoExpandParent}
-            treeData={loop(articles)}
-            selectedKeys={selectedKeys}
-            onSelect={(keys: any) => {
-              setSelectedKeys(keys);
-              if (keys.length) {
-                getDetail(keys[0]);
-              } else {
-                updateState({ article: {} });
-              }
-            }}
-          />
-        </div>
-        <EditorMd
-          type="view"
-          value={article?.content}
-          onChange={(v: string) => {
-            updateState({ article: { ...article, content: v } });
           }}
         />
-      </div>
+      </Sider>
+      <Layout>
+        <Header style={{ background: '#fff' }}>
+          <Space>
+            <Button
+              key="3"
+              onClick={() => {
+                updateState({ article: {} });
+                setOpen(true);
+              }}
+            >
+              新增
+            </Button>
+            <Button
+              key="2"
+              onClick={() => {
+                if (!article.id) {
+                  return;
+                }
+
+                setOpen(true);
+              }}
+            >
+              编辑
+            </Button>
+            <Button
+              key="1"
+              type="primary"
+              onClick={() => {
+                if (!article.id) {
+                  return;
+                }
+
+                del(article.id);
+
+                setSelectedKeys([]);
+              }}
+            >
+              删除
+            </Button>
+          </Space>
+        </Header>
+        <Content>
+          <EditorMd
+            type="view"
+            value={article?.content}
+            onChange={(v: string) => {
+              updateState({ article: { ...article, content: v } });
+            }}
+          />
+        </Content>
+      </Layout>
+
       {open && (
         <EditArticle
           onCancel={() => setOpen(false)}
@@ -125,6 +134,6 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
           roots={loop(articles)}
         />
       )}
-    </>
+    </Layout>
   );
 });
