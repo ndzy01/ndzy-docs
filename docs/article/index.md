@@ -5,24 +5,20 @@ order: 2000
 
 ## git 配置代理
 
-`git config --global http.https://github.com.proxy socks5://127.0.0.1:7891`
+> mac 配合 ClashX 使用
+
+<Copy msg="git config --global http.https://github.com.proxy socks5://127.0.0.1:7891"></Copy>
 
 ![git_配置代理](https://cdn.jsdelivr.net/gh/ndzy01/img/NDZY_6c4f67af-113b-4805-a6a7-09cdc37ffa2d_git_%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86.png)
 
 ## 更新 npm 依赖
 
-```
+```bash
+# 安装全局依赖
 npm install -g npm-check
 
 npm-check -u 当前目录
 npm-check -u -g 全局目录
-```
-
-## 编译 ts 文件
-
-```
-npm install -g typescript
-tsc docs/**/*.ts
 ```
 
 ## uuid 生成器
@@ -33,11 +29,9 @@ tsc docs/**/*.ts
 
 <code src="./_react/react-img-upload.tsx"></code>
 
-## 996
+## 996指数
 
-```bash
-curl -fsSL https://fastly.jsdelivr.net/gh/hellodigua/code996/bin/code996.sh | bash
-```
+<Copy msg="curl -fsSL https://fastly.jsdelivr.net/gh/hellodigua/code996/bin/code996.sh | bash"></Copy>
 
 ## 常用函数
 
@@ -117,32 +111,9 @@ curl -fsSL https://fastly.jsdelivr.net/gh/hellodigua/code996/bin/code996.sh | ba
 }
 ```
 
-## Promise
-
-```js
-Promise.all([]);
-Promise.race(); // 返回最先返回那个
-```
-
 ## h5 调试
 
 必须连接外网 `chrome://inspect` 手机打开开发者模式，并启用 usb 调试
-
-## 函数
-
-```ts
-const loop = (arr: any[]) => {
-  if (Array.isArray(arr)) {
-    arr.forEach((item) => {
-      if (item.children) {
-        loop(item.children);
-      } else {
-        // xxx
-      }
-    });
-  }
-};
-```
 
 ## git actions 设置
 

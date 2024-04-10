@@ -17,6 +17,18 @@ const App = () => {
 
   Object.keys(obj).map((item) => console.log(item));
 
+  const loop = (arr: any[]) => {
+    if (Array.isArray(arr)) {
+      arr.forEach((item) => {
+        if (item.children) {
+          loop(item.children);
+        } else {
+          // xxx
+        }
+      });
+    }
+  };
+
   return null;
 };
 
