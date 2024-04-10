@@ -9,6 +9,7 @@ dist
 **/*/test.tsx
 **/*/test.ts
 **/*.js
+!public/dDom.js
 test.ts
 test.tsx
 test
