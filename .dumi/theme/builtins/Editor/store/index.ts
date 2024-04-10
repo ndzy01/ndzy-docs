@@ -1,4 +1,5 @@
 import { makeAutoObservable, setupStores } from 'ndzy-utils';
+import 'ndzy-utils/dist/index.esm.css';
 import { Articles } from './articles';
 
 export class RootStore {
