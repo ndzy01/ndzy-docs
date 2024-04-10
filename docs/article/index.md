@@ -211,3 +211,5 @@ drawDOMToCanvas('xxx');
 // 打开链接 复制内容到浏览器 console
 // 执行 drawDOMToCanvas('节点class');
 ```
+
+<Copy msg="https://www.ndzy01.com/ndzy-docs/dDom.js"></Copy>
