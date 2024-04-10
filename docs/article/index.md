@@ -209,5 +209,5 @@ drawDOMToCanvas('xxx');
 // 如果上述方法不行的话
 // https://www.ndzy01.com/ndzy-docs/dDom.js
 // 打开链接 复制内容到浏览器 console
-// 允许 drawDOMToCanvas('节点class');
+// 执行 drawDOMToCanvas('节点class');
 ```
