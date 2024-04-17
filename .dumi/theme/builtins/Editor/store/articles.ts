@@ -1,12 +1,42 @@
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from '.';
-import { service } from 'ndzy-utils';
+import { createAxiosInstance } from 'ndzy-utils';
 
 interface State {
   articles: any[];
   article: Record<string, any>;
 }
 
+interface DataNode {
+  title: string;
+  parentId: string | null; // 父节点的 ID
+  id: string;
+  content: string;
+  children?: DataNode[]; // 子节点数组
+}
+
+function buildTree(data: DataNode[]): DataNode[] {
+  let tree: DataNode[] = [];
+  let childrenOf: { [key: string]: DataNode[] } = {};
+
+  data.forEach((item: DataNode) => {
+    // 初始化每个节点的子节点数组
+    childrenOf[item.id] = childrenOf[item.id] || [];
+    // 将节点添加到其子节点数组中
+    item.children = childrenOf[item.id];
+    if (item.parentId === null) {
+      // 如果parentId为null，则为根节点
+      tree.push(item);
+    } else {
+      // 如果存在parentId，则为子节点
+      childrenOf[item.parentId] = childrenOf[item.parentId] || [];
+      childrenOf[item.parentId].push(item);
+    }
+  });
+
+  return tree;
+}
+const service = createAxiosInstance('https://ndzy-article-s.vercel.app');
 export class Articles {
   setLoading: (value: boolean, key?: string) => void;
   updateState: (data: Partial<State>) => void;
@@ -35,9 +65,9 @@ export class Articles {
   async query() {
     this.setLoading(true);
 
-    const data: any = await service({ url: 'article', method: 'GET' });
+    const data: any = await service({ url: '/', method: 'GET' });
 
-    this.updateState({ articles: data.data });
+    this.updateState({ articles: buildTree(data.data || []) });
 
     this.setLoading(false);
   }
@@ -45,9 +75,9 @@ export class Articles {
   async getDetail(id: string) {
     this.setLoading(true);
 
-    const data: any = await service({ url: `article/${id}`, method: 'GET' });
+    const data: any = await service({ url: `/${id}`, method: 'GET' });
 
-    this.updateState({ article: data.data });
+    this.updateState({ article: data.data[0] });
 
     this.setLoading(false);
   }
@@ -55,7 +85,7 @@ export class Articles {
   async save(id: string, params: any) {
     this.setLoading(true);
 
-    await service({ url: `article/${id}`, method: 'PATCH', data: params });
+    await service({ url: `/${id}`, method: 'PATCH', data: params });
 
     this.getDetail(id);
 
@@ -67,7 +97,7 @@ export class Articles {
   async create(params: any) {
     this.setLoading(true);
 
-    await service({ url: `article`, method: 'POST', data: params });
+    await service({ url: '/', method: 'POST', data: params });
 
     this.query();
 
@@ -77,7 +107,7 @@ export class Articles {
   async del(id: string) {
     this.setLoading(true);
 
-    await service({ url: `article/${id}`, method: 'DELETE' });
+    await service({ url: `/${id}`, method: 'DELETE' });
 
     this.updateState({ article: {} });
 
