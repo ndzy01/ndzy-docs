@@ -85,6 +85,7 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
               新增
             </Button>
             <Button
+              disabled
               key="2"
               onClick={() => {
                 if (!article.id) {
