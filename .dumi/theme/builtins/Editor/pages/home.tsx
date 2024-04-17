@@ -97,6 +97,7 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
               编辑
             </Button>
             <Button
+              disabled
               key="1"
               type="primary"
               onClick={() => {

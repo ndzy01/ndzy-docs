@@ -32,11 +32,11 @@ const EditArticle = ({ title, content, id, open, save, create, onCancel, roots }
           </Form.Item>
         )}
 
-        <Form.Item name="title" label="标题" rules={[{ required: true }]}>
+        <Form.Item name="title" label="标题" rules={[{ required: true, message: '标题不能为空' }]}>
           <Input />
         </Form.Item>
 
-        <Form.Item name="content" label="内容" rules={[{ required: true }]}>
+        <Form.Item name="content" label="内容" rules={[{ required: true, message: '内容不能为空' }]}>
           <EditorMd />
         </Form.Item>
 
