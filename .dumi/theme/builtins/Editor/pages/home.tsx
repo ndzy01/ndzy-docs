@@ -85,7 +85,6 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
               新增
             </Button>
             <Button
-              disabled
               key="2"
               onClick={() => {
                 if (!article.id) {
@@ -98,7 +97,6 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
               编辑
             </Button>
             <Button
-              disabled
               key="1"
               type="primary"
               onClick={() => {

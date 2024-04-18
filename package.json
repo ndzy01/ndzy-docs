@@ -29,7 +29,7 @@
     "crypto-js": "^4.1.1",
     "lodash": "^4.17.21",
     "md-editor-rt": "^4.12.1",
-    "ndzy-utils": "^1.1.16",
+    "ndzy-utils": "^1.1.19",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
