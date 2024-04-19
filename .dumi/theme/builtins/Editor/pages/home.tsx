@@ -130,7 +130,6 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
         <Modal open={v} onCancel={() => setV(false)} footer={null}>
           <Tree
             showLine
-            style={{ width: 200 }}
             onExpand={onExpand}
             expandedKeys={expandedKeys}
             autoExpandParent={autoExpandParent}
@@ -143,6 +142,7 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
               } else {
                 updateState({ article: {} });
               }
+              setV(false);
             }}
           />
         </Modal>

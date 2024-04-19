@@ -14,6 +14,8 @@ export const EditorMd = ({ value, onChange, type = 'edit' }: any) => {
           modelValue={value}
           onChange={onChange}
           toolbars={[
+            'preview',
+            '-',
             'bold',
             'underline',
             'italic',
@@ -41,7 +43,6 @@ export const EditorMd = ({ value, onChange, type = 'edit' }: any) => {
             '=',
             'pageFullscreen',
             'fullscreen',
-            'preview',
             'htmlPreview',
             'catalog',
           ]}
