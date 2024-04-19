@@ -1,4 +1,4 @@
-import { Button, Space, Tree } from 'antd';
+import { Button, Modal, Space, Tree } from 'antd';
 import { observer } from 'ndzy-utils';
 import { useStores } from '../store';
 import { EditorMd } from '../components/editor-md';
@@ -24,6 +24,7 @@ const loop = (arr: any[]): any[] => {
 };
 export const Home: React.FC<Record<string, unknown>> = observer(() => {
   const [open, setOpen] = useState(false);
+  const [v, setV] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
@@ -53,28 +54,18 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
   return (
     <Layout style={{ background: '#fff' }}>
       <Spin spinning={loading.articles} />
-      <Sider style={{ background: '#fff' }}>
-        <Tree
-          showLine
-          style={{ width: 200 }}
-          onExpand={onExpand}
-          expandedKeys={expandedKeys}
-          autoExpandParent={autoExpandParent}
-          treeData={loop(articles)}
-          selectedKeys={selectedKeys}
-          onSelect={(keys: any) => {
-            setSelectedKeys(keys);
-            if (keys.length) {
-              getDetail(keys[0]);
-            } else {
-              updateState({ article: {} });
-            }
-          }}
-        />
-      </Sider>
       <Layout>
         <Header style={{ background: '#fff' }}>
           <Space>
+            <Button
+              type="link"
+              key="4"
+              onClick={() => {
+                setV(true);
+              }}
+            >
+              {article?.title || '请选择'}
+            </Button>
             <Button
               key="3"
               onClick={() => {
@@ -133,6 +124,28 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
           create={create}
           roots={loop(articles)}
         />
+      )}
+
+      {v && (
+        <Modal open={v} onCancel={() => setV(false)} footer={null}>
+          <Tree
+            showLine
+            style={{ width: 200 }}
+            onExpand={onExpand}
+            expandedKeys={expandedKeys}
+            autoExpandParent={autoExpandParent}
+            treeData={loop(articles)}
+            selectedKeys={selectedKeys}
+            onSelect={(keys: any) => {
+              setSelectedKeys(keys);
+              if (keys.length) {
+                getDetail(keys[0]);
+              } else {
+                updateState({ article: {} });
+              }
+            }}
+          />
+        </Modal>
       )}
     </Layout>
   );
