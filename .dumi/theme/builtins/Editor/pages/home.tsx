@@ -64,7 +64,7 @@ export const Home: React.FC<Record<string, unknown>> = observer(() => {
                 setV(true);
               }}
             >
-              {article?.title || '请选择'}
+              {article?.title || '请选择文章'}
             </Button>
             <Button
               key="3"
