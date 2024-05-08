@@ -7,21 +7,24 @@ import EditArticle from '../components/edit-article';
 import React from 'react';
 import { Layout, Spin } from 'antd';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 
 const loop = (arr: any[]): any[] => {
-  return arr.map((item) => {
-    const newItem = { ...item, key: item.id, label: item.title, value: item.id };
+  return [...arr]
+    .sort((a, b) => a.order - b.order)
+    .map((item) => {
+      const newItem = { ...item, key: item.id, label: item.title, value: item.id };
 
-    if (Array.isArray(item.children) && item.children.length > 0) {
-      newItem.children = loop(item.children);
-    } else {
-      delete newItem.children;
-    }
+      if (Array.isArray(item.children) && item.children.length > 0) {
+        newItem.children = loop(item.children);
+      } else {
+        delete newItem.children;
+      }
 
-    return newItem;
-  });
+      return newItem;
+    });
 };
+
 export const Home: React.FC<Record<string, unknown>> = observer(() => {
   const [open, setOpen] = useState(false);
   const [v, setV] = useState(false);

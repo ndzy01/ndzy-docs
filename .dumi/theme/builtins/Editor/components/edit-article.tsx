@@ -1,12 +1,12 @@
-import { Button, Form, Input, Modal, TreeSelect } from 'antd';
+import { Button, Form, Input, Modal, TreeSelect, InputNumber } from 'antd';
 import { EditorMd } from './editor-md';
 import React from 'react';
 
-const EditArticle = ({ title, content, id, open, save, create, onCancel, roots }: any) => {
+const EditArticle = ({ order, title, content, id, open, save, create, onCancel, roots }: any) => {
   return (
     <Modal width={1200} title={id ? '编辑文章' : '新增文章'} open={open} onCancel={onCancel} footer={null}>
       <Form
-        initialValues={{ title, content }}
+        initialValues={{ title, content, order }}
         onFinish={(v) => {
           if (id) {
             save(id, { ...v });
@@ -38,6 +38,10 @@ const EditArticle = ({ title, content, id, open, save, create, onCancel, roots }
 
         <Form.Item name="content" label="内容" rules={[{ required: true, message: '内容不能为空' }]}>
           <EditorMd />
+        </Form.Item>
+
+        <Form.Item name="order" label="序号" rules={[{ required: true, message: '序号不能为空' }]}>
+          <InputNumber />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
