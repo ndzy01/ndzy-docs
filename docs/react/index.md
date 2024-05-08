@@ -5,4 +5,4 @@ order: 3000
 
 ## redux 最小实现
 
-<code src="./_react/App.tsx"></code>
+<code src="./_react/redux/App.tsx"></code>
