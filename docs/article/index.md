@@ -9,7 +9,7 @@ order: 2000
 
 <Copy msg="git config --global http.https://github.com.proxy socks5://127.0.0.1:7891"></Copy>
 
-![git_配置代理](https://cdn.jsdelivr.net/gh/ndzy01/img/NDZY_6c4f67af-113b-4805-a6a7-09cdc37ffa2d_git_%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86.png)
+![git_配置代理](https://cdn.jsdelivr.net/gh/ndzy01/img/2024-05-22-16-30-54_%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86.png)
 
 ## 更新 npm 依赖
 
@@ -117,9 +117,9 @@ npm-check -u -g 全局目录
 
 ## git actions 设置
 
-![图1](https://cdn.jsdelivr.net/gh/ndzy01/img/NDZY_d9229d7c-2c6b-4276-ab73-d50a950c9794_img-1.jpg)
+![图1](https://cdn.jsdelivr.net/gh/ndzy01/img/2024-05-22-16-52-32_Actions01.jpg)
 
-![图2](https://cdn.jsdelivr.net/gh/ndzy01/img/NDZY_5847a175-f877-4958-acfa-193dd258c3b8_img-2.jpg)
+![图2](https://cdn.jsdelivr.net/gh/ndzy01/img/2024-05-22-16-54-43_Actions02.jpg)
 
 ## 截图保存
 
