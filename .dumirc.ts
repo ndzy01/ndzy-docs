@@ -9,8 +9,8 @@ export default defineConfig({
     nav: {
       mode: 'append',
       value: [
-        { title: 'manage', link: 'https://ndzy01.gitee.io/ndzy-manage' },
-        { title: '在线文档', link: 'https://www.ndzy01.com/ndzy-app' },
+        // { title: 'manage', link: 'https://ndzy01.gitee.io/ndzy-manage' },
+        // { title: '在线文档', link: 'https://www.ndzy01.com/ndzy-app' },
       ],
     },
   },
